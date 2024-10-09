@@ -1,0 +1,203 @@
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+int FlatShaded = 0;
+int Wireframed = 0;  // 와이어프레임 모드 전역 변수
+int ViewX = 0, ViewY = 0;
+
+// 조명을 초기화하는 함수
+void InitLight() {
+    GLfloat mat_diffuse[] = { 0.5, 0.4, 0.3, 1.0 };
+    GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat mat_ambient[] = { 0.5, 0.4, 0.3, 1.0 };
+    GLfloat mat_shininess[] = { 15.0 };
+    GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat light_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+    GLfloat light_ambient[] = { 0.3, 0.3, 0.3, 1.0 };
+    GLfloat light_position[] = { -3, 6, 3.0, 0.0 };
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+}
+
+// 마우스 움직임 처리
+void MyMouseMove(GLint X, GLint Y) {
+    // 마우스 움직임 X, Y를 전역 변수인 ViewX, ViewY에 할당
+    glutPostRedisplay();
+}
+
+// 키보드 입력 처리
+void MyKeyboard(unsigned char key, int x, int y) {
+    switch (key) {
+    case 'q': case 'Q': case '\033':
+        exit(0);
+        break;
+    case 's':
+        if (FlatShaded) {
+            FlatShaded = 0;
+            glShadeModel(GL_SMOOTH);  // 부드러운 셰이딩
+        }
+        else {
+            FlatShaded = 1;
+            glShadeModel(GL_FLAT);  // 평탄 셰이딩
+        }
+        glutPostRedisplay();
+        break;
+    case 'w':  // 와이어프레임 토글링
+        if (Wireframed) {
+            Wireframed = 0;
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);  // 일반 모드로 변경
+        }
+        else {
+            Wireframed = 1;
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);  // 와이어프레임 모드로 변경
+        }
+        glutPostRedisplay();
+        break;
+    }
+}
+
+// GL_QUADS를 사용한 탁자 상판 그리기
+void DrawTableTop() {
+    glBegin(GL_QUADS);
+    glColor3f(0.6, 0.3, 0.0); // 상판 색상
+    // 상판의 네 개의 면을 정의
+    // 상판 위쪽
+    glVertex3f(-0.5, 0.0, -0.5);
+    glVertex3f(0.5, 0.0, -0.5);
+    glVertex3f(0.5, 0.0, 0.5);
+    glVertex3f(-0.5, 0.0, 0.5);
+
+    // 상판 아래쪽
+    glVertex3f(-0.5, -0.02, -0.5);
+    glVertex3f(0.5, -0.02, -0.5);
+    glVertex3f(0.5, -0.02, 0.5);
+    glVertex3f(-0.5, -0.02, 0.5);
+
+    // 상판 옆면들
+    glVertex3f(-0.5, 0.0, -0.5);
+    glVertex3f(0.5, 0.0, -0.5);
+    glVertex3f(0.5, -0.02, -0.5);
+    glVertex3f(-0.5, -0.02, -0.5);
+
+    glVertex3f(-0.5, 0.0, 0.5);
+    glVertex3f(0.5, 0.0, 0.5);
+    glVertex3f(0.5, -0.02, 0.5);
+    glVertex3f(-0.5, -0.02, 0.5);
+    glEnd();
+}
+
+// 탁자 다리 그리기
+void DrawTableLeg(float x, float z) {
+    glBegin(GL_QUADS);
+    glColor3f(0.4, 0.2, 0.1); // 다리 색상
+    // 다리의 각 면을 정의
+    float legHeight = -0.5;
+    float legSize = 0.05;
+
+    // 앞면
+    glVertex3f(x, 0.0, z);
+    glVertex3f(x + legSize, 0.0, z);
+    glVertex3f(x + legSize, legHeight, z);
+    glVertex3f(x, legHeight, z);
+
+    // 뒷면
+    glVertex3f(x, 0.0, z + legSize);
+    glVertex3f(x + legSize, 0.0, z + legSize);
+    glVertex3f(x + legSize, legHeight, z + legSize);
+    glVertex3f(x, legHeight, z + legSize);
+
+    // 왼쪽면
+    glVertex3f(x, 0.0, z);
+    glVertex3f(x, 0.0, z + legSize);
+    glVertex3f(x, legHeight, z + legSize);
+    glVertex3f(x, legHeight, z);
+
+    // 오른쪽면
+    glVertex3f(x + legSize, 0.0, z);
+    glVertex3f(x + legSize, 0.0, z + legSize);
+    glVertex3f(x + legSize, legHeight, z + legSize);
+    glVertex3f(x + legSize, legHeight, z);
+
+    glEnd();
+}
+
+// 탁자 다리 4개 그리기
+void DrawTableLegs() {
+    DrawTableLeg(-0.45, -0.45);
+    DrawTableLeg(0.35, -0.45);
+    DrawTableLeg(-0.45, 0.35);
+    DrawTableLeg(0.35, 0.35);
+}
+
+// 다양한 기하학적 물체 그리기
+void DrawObjectsOnTable() {
+    // 구
+    glPushMatrix();
+    glColor3f(0.8, 0.1, 0.1);
+    glTranslatef(0.3, 0.1, 0.3);
+    glutSolidSphere(0.1, 20, 20);
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(0.8, 0.1, 0.1);
+    glTranslatef(-0.3, 0.1, 0.3);
+    glutSolidTeapot(0.1);
+    glPopMatrix();
+
+    glPushMatrix();
+    glColor3f(0.8, 0.1, 0.1);
+    glTranslatef(0, 0.1, 0);
+    glutSolidCube(0.2);
+    glPopMatrix();
+
+}
+
+// 화면 출력
+void MyDisplay() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
+
+    // 탁자와 물체 그리기
+    DrawTableTop();
+    DrawTableLegs();
+    DrawObjectsOnTable();
+
+    glFlush();
+}
+
+// 창 크기 조정 처리
+void MyReshape(int w, int h) {
+    glViewport(0, 0, (GLsizei)w, (GLsizei)h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+}
+
+int main(int argc, char* argv[]) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+    glutInitWindowSize(400, 400);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("OpenGL Table and Objects");
+    glClearColor(0.4, 0.4, 0.4, 0.0);
+    InitLight();
+    glutDisplayFunc(MyDisplay);
+    glutKeyboardFunc(MyKeyboard);
+    glutMotionFunc(MyMouseMove);
+    glutReshapeFunc(MyReshape);
+    glutMainLoop();
+}
