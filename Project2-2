@@ -1,0 +1,128 @@
+#include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+// 큐브 위치, 회전 각도, 크기 변수
+float cubePosX = 0.0f;       // X축 위치
+float cubePosY = 0.0f;       // Y축 위치
+float cubeRotationX = 0.0f;  // X축 회전 (위/아래)
+float cubeRotationY = 0.0f;  // Y축 회전 (왼쪽/오른쪽)
+float scale = 1.0f;          // 크기 조절 변수
+
+// 큐브 그리기 함수
+void DrawCube() {
+    glBegin(GL_QUADS);
+
+    // 윗면
+    glColor3f(0.0f, 1.0f, 0.0f); // 녹색
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+
+    // 밑면
+    glColor3f(1.0f, 0.5f, 0.0f); // 주황색
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+
+    // 앞면
+    glColor3f(1.0f, 0.0f, 0.0f); // 빨간색
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+
+    // 뒷면
+    glColor3f(1.0f, 1.0f, 0.0f); // 노란색
+    glVertex3f(1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, -1.0f);
+
+    // 왼쪽 면
+    glColor3f(0.0f, 0.0f, 1.0f); // 파란색
+    glVertex3f(-1.0f, 1.0f, 1.0f);
+    glVertex3f(-1.0f, 1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, -1.0f);
+    glVertex3f(-1.0f, -1.0f, 1.0f);
+
+    // 오른쪽 면
+    glColor3f(1.0f, 0.0f, 1.0f); // 자홍색
+    glVertex3f(1.0f, 1.0f, -1.0f);
+    glVertex3f(1.0f, 1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, 1.0f);
+    glVertex3f(1.0f, -1.0f, -1.0f);
+
+    glEnd();
+}
+
+// OpenGL 화면 업데이트 함수
+void DrawGLScene(GLvoid) {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // 화면 초기화
+    glLoadIdentity();
+
+    // 큐브 이동, 회전 및 크기 조절
+    glTranslatef(cubePosX, cubePosY, -10.0f);      // 위치 이동
+    glRotatef(cubeRotationX, 1.0f, 0.0f, 0.0f);    // X축 회전
+    glRotatef(cubeRotationY, 0.0f, 1.0f, 0.0f);    // Y축 회전
+    glScalef(scale, scale, scale);                 // 크기 조절
+
+    DrawCube(); // 큐브 그리기
+
+    glutSwapBuffers();
+}
+
+// OpenGL 초기화 함수
+void InitGL(int Width, int Height) {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearDepth(1.0f);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0f, (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+// 윈도우 크기 변경 함수
+void ReSizeGLScene(int Width, int Height) {
+    if (Height == 0) Height = 1;
+    glViewport(0, 0, Width, Height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0f, (GLfloat)Width / (GLfloat)Height, 0.1f, 100.0f);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+// 키 입력 처리 함수
+void keyPressed(unsigned char key, int x, int y) {
+    if (key == '1') cubePosX -= 0.1f; // 왼쪽 이동
+    if (key == '2') cubePosX += 0.1f; // 오른쪽 이동
+    if (key == '3') cubePosY += 0.1f; // 위쪽 이동
+    if (key == '4') cubePosY -= 0.1f; // 아래쪽 이동
+
+    if (key == 'a') cubeRotationY -= 5.0; // 왼쪽으로 회전
+    if (key == 'd') cubeRotationY += 5.0; // 오른쪽으로 회전
+    if (key == 'w') cubeRotationX -= 5.0; // 위쪽으로 회전
+    if (key == 's') cubeRotationX += 5.0; // 아래쪽으로 회전
+
+    glutPostRedisplay(); // 화면 갱신 요청
+}
+
+// 메인 함수
+int main(int argc, char* argv[]) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitWindowSize(640, 480);
+    glutCreateWindow("OpenGL Cube Movement");
+
+    InitGL(640, 480);
+    glutDisplayFunc(DrawGLScene);
+    glutReshapeFunc(ReSizeGLScene);
+    glutKeyboardFunc(keyPressed);
+
+    glutMainLoop();
+    return 0;
+}
