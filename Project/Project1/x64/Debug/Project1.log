@@ -1,0 +1,21 @@
+﻿  제작.cpp
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(133,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(134,17): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(155,25): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(155,20): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(155,15): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(166,25): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(166,20): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(166,15): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(168,22): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(169,21): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(170,21): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(171,22): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(178,25): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(178,20): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(187,25): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(187,20): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\Project1\제작.cpp(187,15): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+  Project1.vcxproj -> C:\Users\won2seo\Desktop\대학\3학년 2학기\컴퓨터그래픽스\Computer Graphics final test\Project\x64\Debug\Project1.exe
+  'pwsh.exe'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+  배치 파일이 아닙니다.
